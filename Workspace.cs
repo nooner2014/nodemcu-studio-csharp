@@ -84,6 +84,7 @@ namespace NodeMCU_Studio_2015
             this.serialport.DataBits = 8;
             this.serialport.Parity = Parity.None;
             this.serialport.StopBits = StopBits.One;
+            this.serialport.Encoding = Encoding.UTF8;
             //this.serialport.NewLine = "\r\n";
             this.serialport.DataReceived += Serialport_DataReceived;
             this.serialport.Open();
@@ -153,7 +154,7 @@ namespace NodeMCU_Studio_2015
         public string Load( String f ) {
             try {
                 this.Write( string.Format( "file.open(\"{0}\")" , f ) );
-                var cmd = string.Format( "repeat local line = file.readline() if line then line = (string.gsub(line,\"{0}\",\"\")) print(line) end until not line " , "\n" );
+                var cmd = string.Format( "repeat local line = file.readline() if line then line = (string.gsub(line,\"{0}\",\"\")) print(line) end until not line " , @"\n" );
                 string text = this.Write( cmd );
                 this.Write( "file.close()" );
                 if ( text.Length > cmd.Length ) {
